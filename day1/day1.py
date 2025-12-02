@@ -5,8 +5,6 @@ def process_instructions(instructions):
     for instruction in instructions:
         direction = instruction[0]
         steps = int(instruction[1:])
-        print(direction)
-        print(steps)
 
         # turning left
         if direction == 'L':
@@ -44,10 +42,8 @@ def process_instructions(instructions):
             # Final position
             current = (current + steps) % 100
 
-        
     return zero_count
     
-
 def main():
     with open("../input/day1_input") as f:
         instructions = f.readlines()
