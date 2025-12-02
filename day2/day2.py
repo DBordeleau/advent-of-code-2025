@@ -1,0 +1,40 @@
+def get_invalid_ids(ranges):
+    invalids = []
+    for range_string in ranges:
+        start, end = range_string.split("-")
+        start = int(start)
+        end = int(end)
+
+        # Anything with a leading 0 is an invalid id
+        # Any number comprised of a repeating sequence of digits e.g: 4567845678, 55
+        for num in range(start, end+1):
+            num_str = str(num)
+            
+            # starts with 0
+            if num_str.startswith("0"):
+                invalids.append(num)
+                continue
+
+            # check if comprised only of a sequence of digits repeated twice
+            if len(num_str) % 2 != 0:
+                continue
+            
+            mid = len(num_str) // 2
+            left = num_str[:mid]
+            right = num_str[mid:]
+
+            if left == right:
+                invalids.append(num)
+
+    return invalids
+
+def main():
+    with open("../input/day2_input") as f:
+        input_string = f.read()
+        ranges = input_string.split(",")
+        invalid_ids = get_invalid_ids(ranges)
+        answer = sum(invalid_ids)
+        print(answer)
+
+if __name__ == "__main__":
+    main()
