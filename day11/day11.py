@@ -20,7 +20,7 @@ def count_paths_p2(machine_map):
     can_reach_dac = get_reachable(machine_map, "dac")
     can_reach_out = get_reachable(machine_map, "out")
 
-    # store all seen states: state -> valid_bool
+    # store all seen states: state -> number of valid paths
     seen_states = {}
 
     def count(node, has_fft, has_dac, visited):
@@ -33,9 +33,9 @@ def count_paths_p2(machine_map):
 
         # store whether this is a valid path as the value in the dict
         if node == "out":
-            valid_bool = True if (has_fft and has_dac) else False
-            seen_states[state] = valid_bool
-            return valid_bool
+            result = 1 if (has_fft and has_dac) else 0  # 1 valid path or 0
+            seen_states[state] = result
+            return result
         
         # if it can't reach out, or it cant reach dac/fft when we need it, that shit is dead to us
         if node not in can_reach_out:
