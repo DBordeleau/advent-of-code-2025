@@ -33,20 +33,20 @@ def count_paths_p2(machine_map):
 
         # store whether this is a valid path as the value in the dict
         if node == "out":
-            result = 1 if (has_fft and has_dac) else 0  # 1 valid path or 0
+            result = 1 if (has_fft and has_dac) else 0  # 1 valid path or 0 not true/false
             seen_states[state] = result
             return result
         
         # if it can't reach out, or it cant reach dac/fft when we need it, that shit is dead to us
         if node not in can_reach_out:
-            seen_states[state] = False
-            return False
+            seen_states[state] = 0
+            return 0
         if not has_dac and node not in can_reach_dac:
-            seen_states[state] = False
-            return False
+            seen_states[state] = 0
+            return 0
         if not has_fft and node not in can_reach_fft:
-            seen_states[state] = False
-            return False
+            seen_states[state] = 0
+            return 0
         
         total = 0
         for output in machine_map[node]:
